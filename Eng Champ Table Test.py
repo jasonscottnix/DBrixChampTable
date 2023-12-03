@@ -7,35 +7,6 @@ dbutils.fs.mount(
 
 # COMMAND ----------
 
-df = spark.read.format('csv').options(header='true').load('/mnt/championshiptable/2023/11/05/engchampcurrenttable.csv')
-display(df)
-
-# COMMAND ----------
-
-df = df.drop('Last 6')
-display(df)
-
-# COMMAND ----------
-
-df_pandas = df.toPandas()
-df_pandas.insert(0,'Year',2023)
-df_pandas.insert(1,'Month',11)
-df_pandas.insert(2,'Day',5)
-display(df_pandas)
-
-# COMMAND ----------
-
-df = spark.createDataFrame(df_pandas)
-table_name="engchampionshiptable"
-df.write.saveAsTable(table_name)
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC select * from engchampionshiptable
-
-# COMMAND ----------
-
 # MAGIC %sql
 # MAGIC drop table engchampionshiptable
 
